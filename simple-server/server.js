@@ -28,7 +28,11 @@ const getErrorStatusCode = (err) => {
 };
 
 const server = http.createServer((req, res) => {
-  const url = path.relative('/', req.url);
+  let url = path.relative('/', req.url);
+  const extname = path.extname(req.url);
+  if( !extname ) {
+    url = path.join(url, 'index.html');
+  }
 
   fs.readFile(url, (err, data) => {
     if(!err) {
