@@ -11,3 +11,10 @@ $ npm install
 ```sh
 $ node server.js
 ```
+
+### TODO
+
+```sh
+$ npm run server -o
+```
+open new browser

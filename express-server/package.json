@@ -1,6 +1,12 @@
 {
+  "scripts": {
+    "server": "node server.js"
+  },
   "dependencies": {
     "express": "^4.16.4",
     "pug": "^2.0.3"
+  },
+  "devDependencies": {
+    "open": "^0.0.5"
   }
 }

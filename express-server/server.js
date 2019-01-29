@@ -1,5 +1,6 @@
 const express = require('express'),
       path    = require('path'),
+      open    = require('open'),
       app     = express();
 
 const rootPath = '/webroot';
@@ -29,5 +30,12 @@ app.use((err, req, res, next)=> {
 });
 
 app.listen(3000, ()=> {
+  /* TODO
+  console.log( app.locals );
+  const openFlg = process.env.NODE_SERVER? !!(process.env.NODE_SERVER - 0) : false;
+  if( openFlg ) {
+    //open("http" + (webserver.https? 's':'') + "://" + webserver.host + ":" + webserver.port" );
+  }
+  */
   console.log("Express Server\nopen: http://localhost:3000");
 });
