@@ -1,0 +1,7 @@
+{
+  "name": "webpack-spa-server",
+  "version": "1.0.0",
+  "description": "webpack for SPA ( pug + stylus )",
+  "repository": "git@github.com:chaika-design/frontend-dev-server.git",
+  "license": "MIT"
+}
