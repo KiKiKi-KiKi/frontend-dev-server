@@ -66,7 +66,7 @@ module.exports = (env, argv) => {
         },
       },
     ];
-    return loaders; 
+    return loaders;
   };
 
   return {
@@ -111,7 +111,7 @@ module.exports = (env, argv) => {
       new CleanWebpackPlugin({
         dry: false,
         verbose: true,
-        cleanOnceBeforeBuildPatterns: ['**/*', '!img/*']
+        cleanOnceBeforeBuildPatterns: ['**/*', '!img', '!img/*']
       }),
       new HtmlWebpackPlugin({
         template: htmlTemplate,
