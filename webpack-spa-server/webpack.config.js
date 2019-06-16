@@ -2,6 +2,7 @@ const path = require('path');
 // Plugins
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 // CSS libs
 const postcssNormalize = require('postcss-normalize');
@@ -107,6 +108,11 @@ module.exports = (env, argv) => {
     },
     devtool: enabledSourceMap && 'source-map',
     plugins: [
+      new CleanWebpackPlugin({
+        dry: false,
+        verbose: true,
+        cleanOnceBeforeBuildPatterns: ['**/*', '!img/*']
+      }),
       new HtmlWebpackPlugin({
         template: htmlTemplate,
       }),
