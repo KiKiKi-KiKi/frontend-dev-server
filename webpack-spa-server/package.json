@@ -3,5 +3,16 @@
   "version": "1.0.0",
   "description": "webpack for SPA ( pug + stylus )",
   "repository": "git@github.com:chaika-design/frontend-dev-server.git",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "build": "./node_modules/.bin/babel src/index.js -o build/script.js"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.4.4"
+  }
 }
