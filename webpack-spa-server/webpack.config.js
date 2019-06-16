@@ -3,6 +3,11 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
+// CSS libs
+const postcssNormalize = require('postcss-normalize');
+const cssMqpacker = require('css-mqpacker');
+const cssnano = require('cssnano');
+
 // PATH
 const ASSET_PATH = process.env.ASSET_PATH || '/';
 const src = path.join(__dirname, 'src');
@@ -28,8 +33,30 @@ module.exports = (env, argv) => {
         loader: 'css-loader',
         options: {
           sourceMap: enabledSourceMap,
-          importLoaders: 1
+          importLoaders: 2
         },
+      },
+      {
+        loader: 'postcss-loader',
+        options: {
+          plugins: [
+            isProduction && cssnano({ preset: 'default' }),
+            cssMqpacker({
+              sort: true
+            }),
+            require('postcss-flexbugs-fixes'),
+            require('postcss-preset-env')({
+              autoprefixer: {
+                flexbox: 'no-2009',
+              },
+              stage: 3,
+            }),
+            postcssNormalize({
+              browsers: [">0.25% in JP", "not ie <= 10", "not op_mini all"],
+            }),
+          ].filter(Boolean),
+          sourceMap: enabledSourceMap,
+        }
       },
       {
         loader: 'stylus-loader',
