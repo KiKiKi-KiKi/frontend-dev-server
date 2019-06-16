@@ -8,6 +8,8 @@ const entrypoint = {
 const output = path.resolve(__dirname, 'build');
 
 module.exports = (env, argv) => {
+  const isOpenDevServer = !!env && env.open;
+
   return {
     mode: 'development',
     entry: entrypoint,
@@ -28,5 +30,14 @@ module.exports = (env, argv) => {
       ],
     },
     devtool: 'source-map',
+    devServer: {
+      open: isOpenDevServer,
+      port: 3000,
+      contentBase: [
+        output,
+      ],
+      publicPath: '/img/',
+      watchContentBase: true,
+    },
   };
 };
