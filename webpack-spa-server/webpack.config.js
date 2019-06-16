@@ -1,6 +1,7 @@
 const path = require('path');
 // Plugins
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 // PATH
 const ASSET_PATH = process.env.ASSET_PATH || '/';
@@ -15,7 +16,30 @@ const htmlTemplate = path.join(src, 'index.pug');
 
 module.exports = (env, argv) => {
   const isProduction = argv.mode === 'production';
+  const enabledSourceMap = isProduction || false;
   const isOpenDevServer = !!env && env.open;
+
+  const getStyleLoaders = () => {
+    const loaders = [
+      {
+        loader: MiniCssExtractPlugin.loader,
+      },
+      {
+        loader: 'css-loader',
+        options: {
+          sourceMap: enabledSourceMap,
+          importLoaders: 1
+        },
+      },
+      {
+        loader: 'stylus-loader',
+        options: {
+          sourceMap: false,
+        },
+      },
+    ];
+    return loaders; 
+  };
 
   return {
     mode: 'development',
@@ -24,6 +48,10 @@ module.exports = (env, argv) => {
       path: output,
       publicPath: ASSET_PATH,
       filename: '[name].js',
+    },
+    resolve: {
+      modules: ['node_modules'],
+      extensions: ['.json', '.js', '.jsx', 'svg', '.styl'],
     },
     module: {
       rules: [
@@ -43,12 +71,20 @@ module.exports = (env, argv) => {
             } : {}
           }
         },
+        {
+          test: /\.styl$/,
+          use: getStyleLoaders(),
+          sideEffects: true,
+        },
       ],
     },
-    devtool: 'source-map',
+    devtool: enabledSourceMap && 'source-map',
     plugins: [
       new HtmlWebpackPlugin({
         template: htmlTemplate,
+      }),
+      new MiniCssExtractPlugin({
+        filename: "stylesheets/[name].css",
       }),
     ],
     devServer: {

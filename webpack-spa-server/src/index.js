@@ -1,3 +1,5 @@
+import './stylus/App.styl';
+
 const asyncSUM = (x, y) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
